@@ -10,6 +10,7 @@ print("Current path: {}".format( os.path.abspath(os.curdir)))
 Dict = {}
 word_count = 0
 char_count = 0
+valid_char = 0
 jieba.load_userdict('./data/dict.txt')  
 
 # 仅留中文
@@ -49,6 +50,8 @@ def seg_sentence(sentence):
 def mean_entropy (Dict):
     entropy = 0
     for key in Dict:
+        global valid_char
+        valid_char += len(key) * Dict[key]
         Dict[key] /= word_count
         entropy += Dict[key] * math.log((1 / Dict[key]), 2)
     #entropy /= len(Dict)
@@ -61,8 +64,10 @@ with open('./data/santi.txt', 'r', encoding='utf-8') as inputs:
             line_seg = seg_sentence(line_solve)     # 分词, 这里的返回值是字符串  
             outputs.write(line_seg + '\n')  
         outputs.write(str(Dict))
-        result = mean_entropy(Dict)      
+        result = mean_entropy(Dict) 
+        ave_char = valid_char / word_count          # 词语中平均含有的字数
 
-print("\nCalculation is done successfully! The concrete details are in ./data/output.txt") 
+print("\nCalculation is done successfully!\nThe concrete details are in ./data/output.txt") 
 print("Total number of chars: {0}\nTotal number of words: {1}\nMean entropy: {2:.2f}".format(char_count, \
     len(Dict), result))
+print("Every word has {0:.2f} chars averagely".format(ave_char))
