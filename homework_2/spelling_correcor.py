@@ -11,7 +11,7 @@ from collections import Counter
 def words(text): 
     return re.findall(r'\w+', text.lower())
 
-with open('curpus.txt', encoding = 'utf-8') as f:  
+with open('corpus.txt', encoding = 'utf-8') as f:  
     process = words(f.read())
     WORDS = Counter(process)
     num = len(process) /1000000
