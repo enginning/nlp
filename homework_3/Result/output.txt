@@ -1,0 +1,29 @@
+
+   0: log-likehood: -7.7170
+   1: log-likehood: -4.5564
+   2: log-likehood: -4.3198
+   3: log-likehood: -4.2419
+   4: log-likehood: -4.2388
+   5: log-likehood: -4.2387
+   6: log-likehood: -4.2387
+------------------------------------------The final result------------------------------------------
+
+The proportion of samples is:  [0.594 0.406]
+
+The True_Mu is  [[0.5, 0.5], [1, 7]]
+The Pridict Mu is  [[0.515 0.466 1.195 7.048]]
+
+The accurancy for predicting Mu is (ordered by row)
+0.970 0.932 0.805 0.993
+
+The True_Var is
+ matrix_1: [[3 4 4 7]]
+ matrix_2: [[6 3 3 2]]
+The Predict Var is
+ matrix_1: [[2.929 3.978 3.978 7.136]]
+ matrix_2: [[6.556 3.019 3.019 1.963]]
+
+The accurancy for predicting Var is (ordered by row)
+0.976 0.995 0.995 0.981
+The accurancy for predicting Var is (ordered by row)
+0.907 0.994 0.994 0.982
