@@ -3,13 +3,15 @@
     For buaa nlp homework_3
     内容: 生成G MM模型，然后用 EM算法迭代求出 GMM模型的参数
     掌握：隐变量、隐含模型、EM算法、GMM模型、二维正态分布、协方差矩阵
+    Ref: http://sofasofa.io/tutorials/gmm_em/
     
     其中，均值表征各维变量的中心，协方差矩阵(对称阵)正对角为各维变量的方差，斜对角为各维变量间的协方差（相关性)
     GMM算法的两个前提: 1. 数据服从高斯分布; 2. 已知分类数 k
     当然，如果分类数未知的话，则需要先进行 k-means，给出相应的初值，再用 EM算法进行求解
     https://github.com/enginning/nlp/
 
-    核心是 EM算法，同时也加入可视化的模块，其中，椭圆的长、短轴采用经验公式: long_axis = sigma_big, short_axis_small * rho，
+    核心是 EM算法，同时也加入可视化的模块，其中，椭圆的长、短轴采用经验公式: long_axis = 3 * sigma_big, 
+        short_axis = 3 * sigma_small * rho，
         椭圆长轴的夹角为 arctan(rho * (sigma_2 / sigma_1))，可能和理论推导出来的有一定的差别
 
 '''
@@ -167,6 +169,8 @@ def update_Var(X, Mu, W, Pi):
         a1 = np.average((X[:, 0] - Mu[i][0]) ** 2, axis=0, weights=W[:, i])
         a3 = np.average((X[:, 1] - Mu[i][1]) ** 2, axis=0, weights=W[:, i])
         a2 = np.dot(W[:, i] * (X[:, 0] - Mu[i][0]), (X[:, 1] - Mu[i][1])) / (len(X) * Pi[i])
+        # a2 = np.dot(W[:, i] * (X[:, 0] - Mu[i][0]), (X[:, 1] - Mu[i][1])) / np.sum(W[:, i])
+        # np.sum(W[:, i]) = len(X) * Pi[i]
         Var.append(np.mat([[a1, a2], [a2, a3]]))
     return Var
 
@@ -238,6 +242,8 @@ if __name__ == '__main__':
     i = 0
     print('\n')
     while((i < 3) or ((loglh[-1] - (loglh[-2] + loglh[-3]) / 2) > 0.001)):
+        # 下面一行取消注释的话，可以进行 EM迭代求解的可视化
+        # plot_clusters(X, Mu, Var, true_Mu, true_Var)
         loglh.append(logLH(X, Pi, Mu, Var))
         W = update_W(X, Mu, Var, Pi)
         Pi = update_Pi(W)
