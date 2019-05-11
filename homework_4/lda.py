@@ -295,7 +295,6 @@ def SVM(train_data, train_label, test_data, test_label):
     model = OneVsRestClassifier(svm.SVC(kernel='linear'))
     clt = model.fit(train_data, train_label)
     Predict = clt.predict(test_data)
-    print("Train rate is ", clt.score(train_data, train_label))
     Accurancy = clt.score(test_data, test_label)
     return Predict, Accurancy
 
