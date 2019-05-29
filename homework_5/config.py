@@ -11,7 +11,7 @@ class Config(object):
     weight_file = 'poetry_generator/poetry_model.h5'
     
     # 根据前六个字预测第七个字
-    flag = 1
+    flag = 0
     max_len = 6
     batch_size = 512
     learning_rate = 0.001
